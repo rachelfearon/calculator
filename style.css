@@ -26,22 +26,44 @@ body {
 .displaywrapper {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
-    height: 0.2 fr;
+    /* align-items: flex-start; */
+    
     background-color: blue;
 }
 
 .buttonwrapper {
     display: flex;
     flex-direction: row;
-    align-items: center;
-    height: 1fr;
-    width: 600px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 650px;
+}
+
+/* .buttonwrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+    width: 650px;
+} */
+
+.numberbuttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    
+}
+
+.operatorbuttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 0 0 10px;
+}
+
+#add {
+    height: 100px;
 }
 
 .button {
-    display: flex;
-    flex-direction: row;
-    width: 1fr;
-    height: 1fr;
+    margin: 5px;
+    height: 50px;
+    width: 100px;
 }
