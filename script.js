@@ -1,62 +1,83 @@
-const addButton = document.querySelector('#add');
-
-const oneButton = document.querySelector('#one');
-const twoButton = document.querySelector('#two');
-
 const display = document.querySelector('#display');
 
 const numberButtons = document.querySelector('#numberbuttons');
 const operatorButtons = document.querySelector('#operatorbuttons');
+const equalsButton = document.querySelector('#equalsbutton');
+const decimalButton = document.querySelector('#decimalbutton');
 
 let currentNumber = '0';
+let lastNumber = '';
 let runningTotal = '';
 let currentOperator = '';
-let currentButton = '';
+
 
 let operatorButton = document.querySelector('.operatorbutton');
 
 numberButtons.addEventListener("click", event => {
-    let btnid = event.target.textContent;
-
-    if (event.target.id === 'equals') {
-        if (currentOperator.textContent === '+') {
-            currentOperator.classList.toggle("activeButton");
-            return Number(currentNumber) + Number(display.textContent);
+    if (event.target.id == 'equalsbutton' || event.target.id == 'numberButtons') {
+        return;
+    } else {
+        if (currentOperator) {
+            if (currentOperator.classList.contains("activeButton")) {
+                currentOperator.classList.remove("activeButton");
+            };
         };
-    }; 
+    };
+    let btnid = event.target.textContent;
+    displayNumber(btnid);
+    consolelog();
+});
 
-    storeNumber(btnid);
+equalsButton.addEventListener("click", event => {
+    if (event.target.id !== 'equalsbutton') { //prevent highlighting div instead of button only
+        //check currentOp & send to correct Operator function with currentNum & lastNum
+        if (currentOperator.id === "add") {
+            runningTotal = add(currentNumber, lastNumber);
+            displayNumber(runningTotal);
+            return runningTotal;
+        };
+        //receive total from Operator function & display it
+        
+
+        //set total as currentNum AND runningTotal
+
+        //reset currentOp to '';
+        
+        consolelog();
+    };
 });
 
 operatorButtons.addEventListener("click", event => {
-    // if (display.textContent != '0') {
+    if (event.target.id === 'operatorbuttons') { //ignore containing div
+        return;
+    };
 
-    // }
-
-    if (event.target.id === 'equals') {
-        if (currentOperator.textContent === '+') {
-            currentOperator.classList.toggle("activeButton");
-            return Number(currentNumber) + Number(display.textContent);
+    if (lastNumber) {
+        if (currentOperator.id === "add") {
+            runningTotal = add(currentNumber, lastNumber);
+            displayNumber(runningTotal);
+            return runningTotal;
         };
-    } else if (currentOperator === '') {
+    };
+
+    if (currentOperator === '') { //if beginning of a new operation (no existing operator)
+        //lastNumber = currentNumber;
         let operatorId = document.querySelector(`#${event.target.id}`);
         storeOperator(operatorId);
-        currentButton = document.querySelector(`#${event.target.id}`);
-    } else  if (currentOperator === document.querySelector(`#${event.target.id}`)) {
+        currentOperator.classList.add("activeButton");
+    } /*else  if (currentOperator === document.querySelector(`#${event.target.id}`)) { //if clicking same operator twice in a row, deselect it
+        currentOperator.classList.remove("activeButton");
         currentOperator = '';
-        currentButton = '';
-    } else {
-        let operatorId = document.querySelector(`#${event.target.id}`);;
-        currentOperator.classList.toggle("activeButton");
+
+    }*/ else {
+        currentOperator.classList.remove("activeButton");
+        currentOperator = '';
+        let operatorId = document.querySelector(`#${event.target.id}`);
         storeOperator(operatorId);
-        currentButton = document.querySelector(`#${event.target.id}`);
+        currentOperator.classList.add("activeButton");
     };
     
-    if (event.target.id === 'operatorbuttons') {
-        return;
-    } else {
-    event.target.classList.toggle("activeButton");
-    };
+    consolelog();
 });
 
 function displayNumber(btnid) {
@@ -69,20 +90,21 @@ function displayNumber(btnid) {
             currentNumber = display.textContent;
         } else if (currentOperator != '') {
             display.textContent = (`${number}`);
+            lastNumber = currentNumber;
             currentNumber = display.textContent;
             //currentOperator.classList.toggle("activeButton");
-            operate(currentOperator, currentNumber, `${Number(display.textContent)}`);
+            
 
         } else {
             display.textContent = (`${currentNumber.toString()}${number}`); 
             currentNumber = display.textContent;
         }
     };
+    //consolelog();
 };
 
 function storeNumber(btnid) {
     number = Number(btnid);
-    displayNumber(btnid);
 };
 
 function storeOperator(operatorId) {
@@ -91,8 +113,9 @@ function storeOperator(operatorId) {
 };
 
 
-function add(num1, num2) {
-    return num1 + num2;
+function add(currentNum, lastNum) {
+    return Number(currentNum) + Number(lastNum);
+    //display.textContent = (`${currentNumber.toString()}`);
 };
 
 function subtract(num1, num2) {
@@ -110,14 +133,28 @@ function divide(num1, num2) {
 function operate(operator, num1, num2) {
     if (operator.id === 'add') {
         currentOperator = '';
-        return add(num1, num2);
-    } else if (operator === '-') {
+        add(num1, num2);
+    } else if (operator.id === 'subtract') {
+        currentOperator = '';
         return subtract(num1, num2);
-    } else if (operator === '*') {
+        
+    } else if (operator.id === '*') {
+        currentOperator = '';
         return multiply(num1, num2);
-    } else if (operator === '/') {
+        
+    } else if (operator.id === '/') {
+        currentOperator = '';
         return divide(num1, num2);
+        
     } else {
-        return "OOPS";
+        console.log("OOPS");
     }
 };
+
+function consolelog() {
+    console.log(`currentOperator = ${currentOperator.id}`);
+console.log(`currentNumber = ${currentNumber}`);
+console.log(`lastNumber = ${lastNumber}`);
+console.log(`runningTotal = ${runningTotal}`);
+console.log(`------------`);
+}
