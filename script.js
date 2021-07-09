@@ -1,39 +1,51 @@
 const display = document.querySelector('#display');
-
 const numberButtons = document.querySelector('#numberbuttons');
 const operatorButtons = document.querySelector('#operatorbuttons');
 const equalsButton = document.querySelector('#equalsbutton');
-const decimalButton = document.querySelector('#decimalbutton');
 
 let currentNumber = '';
 let lastNumber = '';
 let runningTotal = '';
 let currentOperator = '';
 let lastOperator = '';
+let equals = false;
 
 numberButtons.addEventListener("click", event => {
-    if (event.target.id == 'equalsbutton' || event.target.id == 'numberButtons') {
+    if (event.target.id == 'equalsbutton' || event.target.id == 'numberButtons') { //ignore equals & surrounding div
         return;
     } else {  //Deactivate any highlighted Operator buttons
         if (currentOperator) {
             if (currentOperator.classList.contains("activeButton")) {
-            //if an operator is currently selected, clear out the display to put new numbers
-            display.textContent = '';
-            //then remove the active status
-            currentOperator.classList.remove("activeButton");
-            }
+            display.textContent = ''; //if an operator is currently selected, clear out the display to put new numbers
+            currentOperator.classList.remove("activeButton"); //then remove the active status
+            };
         };
     };
-    //display Number (but disclude NaN)
-    if (event.target.textContent !== '=') {
-        let num = event.target.textContent;
-    displayNumber(num);
-    
-    //set clicked number as currentNumber plus previously displayed number
-    currentNumber = currentNumber + num;
-    }
-    
 
+    if (event.target.id == 'decimal') {
+        if (display.textContent.length > 19) {
+            return;
+        };
+
+        if (display.textContent.includes('.')) {
+            return;
+        } else {
+            let decimal = '.';
+            displayNumber(decimal);
+            currentNumber = currentNumber + decimal;
+        };
+    };
+    
+    if (event.target.textContent !== '=' && event.target.textContent !== '.') {//display Number (but disclude NaN)
+        if (display.textContent.length > 19) {
+            return;
+        } else {
+            let num = event.target.textContent;
+            displayNumber(num);
+            currentNumber = currentNumber + num; //set clicked number as currentNumber plus previously displayed number
+            equals = false;
+        };
+    };
     consolelog();
 });
 
@@ -42,36 +54,59 @@ operatorButtons.addEventListener("click", event => {
         return;
     };
 
-    // if an operation is in progress, resolve the operation & display total
-    if (lastNumber && currentOperator) {
-        runningTotal = operate(currentOperator.id, currentNumber, lastNumber);
+
+
+    if (event.target.id === 'clear') {
+        clearAll();
+        return;
+    };
+
+    if (event.target.id === 'squareroot') {
+        runningTotal = squareroot(currentNumber);
         display.textContent = '';
         displayNumber(runningTotal);
         currentNumber = runningTotal;
     };
-
-
-    //store this button as currentOperator
-    storeOperator(document.querySelector(`#${event.target.id}`));
-
-    //highlight button as active
-    currentOperator.classList.add("activeButton");
-
-    //store DISPLAYED number as lastNumber?
-    lastNumber = display.textContent;
-
-    //clear out currentNumber?
-    currentNumber = '';
-
-consolelog();
-});
-
-equalsButton.addEventListener("click", event => {
-    if (event.target.id !== 'equalsbutton') { //prevent highlighting of surrounding div
+    // if an operation is in progress, resolve the operation & display total
+    if (currentOperator.id === "divide" && currentNumber === "0") {
+        operate(currentOperator.id, currentNumber, lastNumber);
+        return;
+    } else {
+        if (lastNumber && currentOperator) {
         runningTotal = operate(currentOperator.id, currentNumber, lastNumber);
         display.textContent = '';
         displayNumber(runningTotal);
         currentNumber = runningTotal;
+        };
+
+        clearActiveOperators();
+        
+        storeOperator(document.querySelector(`#${event.target.id}`)); //store this button as currentOperator
+
+        currentOperator.classList.add("activeButton"); //highlight button as active
+
+        lastNumber = display.textContent; //store DISPLAYED number as lastNumber
+
+        currentNumber = ''; //clear out currentNumber
+
+        equals = false;
+    };
+});
+
+equalsButton.addEventListener("click", event => {
+    if (event.target.id !== 'equalsbutton') { //prevent highlighting of surrounding div
+        if (equals === true) { //if equals is clicked twice in a row, return
+            return;
+        } else if (!lastNumber) {
+            return;
+        } else {
+        runningTotal = operate(currentOperator.id, currentNumber, lastNumber);
+        display.textContent = '';
+        displayNumber(runningTotal);
+        currentNumber = runningTotal;
+        lastNumber = '';
+        equals = true;
+        }
     };
 });
 
@@ -79,43 +114,52 @@ function storeOperator(operatorId) {
     currentOperator = operatorId;
 };
 
-
-
 function displayNumber(num) {
     if (isNaN(num)) {
-        return;
-    } else { 
-        if (display.textContent === '0') {  //check if it's the beginning/Clear 0
+        if (num === '.') {
+            if (!currentNumber) {
+                display.textContent = '0';
+                display.textContent = display.textContent + num;
+            } else {
+                display.textContent = display.textContent + num;
+            };
+        } else {
+            return;
+        };        
+    } else if (!lastOperator) {
+        if (display.textContent === '0') {
             display.textContent = '';
+            display.textContent = display.textContent + num;
+        } else { 
+            if (equals == true) {
+                display.textContent = '';
+            };
+
+            if (display.textContent === '0') {  //check if it's the beginning/Clear 0
+            display.textContent = '';
+            };
+            
+            display.textContent = display.textContent + num; //display multi digit numbers
         };
-        display.textContent = display.textContent + num; //display multi digit numbers
     };
-    console.log('****')
-    consolelog();
 };
-
-
 
 function operate(operator, num1, num2) {
     if (operator === 'add') {
         currentOperator = '';
-        total = add(num1, num2);
-        return total;
+        return add(num1, num2);
     } else if (operator === 'subtract') {
         currentOperator = '';
         return subtract(num1, num2);
-        
     } else if (operator === 'multiply') {
         currentOperator = '';
         return multiply(num1, num2);
-        
     } else if (operator === 'divide') {
         currentOperator = '';
         return divide(num1, num2);
-        
     } else {
         console.log("OOPS");
-    }
+    };
 };
 
 function add(currentNum, lastNum) {
@@ -133,10 +177,31 @@ function multiply(currentNum, lastNum) {
 function divide(currentNum, lastNum) {
     if (currentNum == 0) {
         alert("You can't do that, Dave.");
-        return;
+        clearAll();
+        return runningTotal = 0;
     } else {
         return (Number(lastNum) / Number(currentNum));
     };
+};
+
+function squareroot(currentNum) {
+    if (currentNum == 0) {
+        return 0;
+    } else {
+        return (Math.sqrt(Number(currentNum)));
+    }
+}
+
+function clearAll() {
+    
+    display.textContent = '0';
+    currentNumber = '';
+    lastNumber = '';
+    runningTotal = '';
+    
+    clearActiveOperators();
+
+    consolelog();
 };
 
 function consolelog() {
@@ -145,5 +210,18 @@ function consolelog() {
     console.log(`currentNumber = ${currentNumber}`);
     console.log(`lastNumber = ${lastNumber}`);
     console.log(`runningTotal = ${runningTotal}`);
+    console.log(`equals = ${equals}`);
     console.log(`------------`);
-}
+};
+
+function clearActiveOperators() {
+    currentOperator = '';
+    lastOperator = '';
+    
+    //let opBtns = operatorButtons.childNodes;
+    for (i = 0; i < operatorButtons.children.length; i++) {
+        if (operatorButtons.children[i].classList.contains("activeButton")){
+            operatorButtons.children[i].classList.remove("activeButton");
+        }
+    };
+};
