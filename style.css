@@ -18,17 +18,40 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgb(170, 157, 80);
+    /* background-color: rgb(190, 168, 119); */
+    background: repeating-linear-gradient(rgb(207, 181, 125), rgb(173, 154, 112) 5px, rgb(122,107,75) 5px);
+    background: linear-gradient(to bottom right, rgb(190, 168, 119), 60%, rgb(122, 107, 75));
+    
     width: 700px;
     height: 500px;
 }
 
+.header {
+    display: grid;
+    width: 650px;
+    grid-template-columns: 1fr 1fr;
+    justify-content:space-around;
+}
+
+.title > p {
+    display: flex;
+    justify-content: center;
+    font-family: cursive;
+    font-size: 2em;
+    font-weight: 800;
+    transform: rotate(-12deg);  
+}
+
 .displaywrapper {
-    display: inline-block;
+    display: grid;
     width: 200px;
     background-color: lightblue;
     border: 1px solid black;
-    text-align: right;
+    justify-self: end;
+    margin-bottom: 25px;
+    
+    /*text-align: right;*/
+    
 }
 
 .display {
@@ -77,4 +100,70 @@ body {
 .activeButton {
     background-color: blue;
     color: red;
+}
+
+input {
+    display: flex;
+    background: url('images/gemstone.png') no-repeat;
+    background-size: 5.5em;
+    background-position: left;
+    border: none;
+    /* align-self: center; */
+    /* justify-self: center; */
+
+}
+
+
+
+/* input.value {
+    font-size: 2em;
+    font-style:italic;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    vertical-align: super;
+} */
+
+p {
+    font-size: 1.5em;
+    vertical-align: super;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif
+
+}
+
+.buttonset {
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    margin: 0px;
+
+
+}
+
+#one, #six, #seven {
+    background: url('images/bluegemstone.png') no-repeat;
+    background-size: 5.5em;
+}
+
+#two, #three {
+    background: url('images/greengemstone.png') no-repeat;
+    background-size: 5.5em;
+}
+
+#four, #eight {
+    background: url('images/redgemstone.png') no-repeat;
+    background-size: 5.5em;
+}
+
+#five {
+    background: url('images/purplegemstone.png') no-repeat;
+    background-size: 5.5em;
+}
+
+#zero, #nine {
+    background: url('images/yellowgemstone.png') no-repeat;
+    background-size: 5.5em;
+}
+
+#decimal, #equals {
+    background: url('images/whitegemstone.png') no-repeat;
+    background-size: 5.5em;
 }

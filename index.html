@@ -6,36 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bling Thing Calculator</title>
     <link rel="stylesheet" href="style.css">
+    
 </head>
 <body>
     <div class="calcwrapper">
-        <div class="displaywrapper">
-            <div class="display">
-                <p id="display">0</p>
+        <div class="header">
+            <div class="displaywrapper">
+                <div class="display">
+                    <p id="display">0</p>
+                </div>
+                
+            </div>
+            <div class="title">
+                <p>Bling Thing</p>
             </div>
         </div>
-        <div class="buttonwrapper">
+        <div class="buttonwrapper"> 
             <div id="numberbuttons" class="numberbuttons">
-                <button id="seven" class="numberbutton">7</button>
-                <button id="eight" class="numberbutton">8</button>
-                <button id="nine" class="numberbutton">9</button>
-                
-                <button id="four" class="numberbutton">4</button>
-                <button id="five" class="numberbutton">5</button>
-                <button id="six" class="numberbutton">6</button>
+                <div class="buttonset">
+                    <p>7</p>
+                    <input type="button" id="seven" class="numberbutton" placeholder="7">
+                </div>
+                <div class="buttonset" id="buttonset">
+                    <p>8</p>
+                    <input type="button" id="eight" class="numberbutton" placeholder="8">
+                </div>
+                <div class="buttonset" id="buttonset">
+                    <p>9</p>
+                    <input type="button" id="nine" class="numberbutton" placeholder="9">
+                </div>
 
-                <button id="one" class="numberbutton">1</button>
-                <button id="two" class="numberbutton">2</button>
-                <button id="three" class="numberbutton">3</button>
+                <div class="buttonset" id="buttonset">
+                    <p>4</p>
+                    <input type="button" id="four" class="numberbutton" placeholder="4">
+                </div>
+                <div class="buttonset" id="buttonset">
+                    <p>5</p>
+                    <input type="button" id="five" class="numberbutton" placeholder="5">
+                </div>
+                <div class="buttonset" id="buttonset">
+                    <p>6</p>
+                    <input type="button" id="six" class="numberbutton" placeholder="6">
+                </div>
 
-                <button id="zero" class="numberbutton">0</button>
+
+                <div class="buttonset" id="buttonset">
+                    <p>1</p>
+                    <input type="button" id="one" class="numberbutton" placeholder="1">
+                </div>
+                <div class="buttonset" id="buttonset">
+                    <p>2</p>
+                    <input type="button" id="two" class="numberbutton" placeholder="2">
+                </div>    
+                <div class="buttonset" id="buttonset">
+                    <p>3</p>
+                    <input type="button" id="three" class="numberbutton" placeholder="3">
+                </div>
+
+                <div class="buttonset" id="buttonset">
+                    <p>0</p>
+                    <input type="button" id="zero" class="numberbutton" placeholder="0">
+                </div>
+
+                <div class="buttonset" id="buttonset">
+                    <p>.</p>
+                    <input type="button" id="decimal" class="numberbutton" placeholder=".">
+                </div>
+                <div class="buttonset" id="buttonset">
+                    <p>=</p>
+                    <input type="button" id="equals" class="numberbutton" placeholder="=">
+                </div>
                 
-            <div id="decimalbutton" class="decimalbutton">    
+            <!-- <div id="decimalbutton" class="decimalbutton">    
                     <button id="decimal" class="button">.</button>
-            </div>       
-            <div id="equalsbutton" class="equalsbutton">     
+            </div>        -->
+            <!-- <div id="equalsbutton" class="equalsbutton">     
                     <button id="equals" class="button">=</button>
-            </div>
+            </div> -->
             </div>
             <div id="operatorbuttons" class="operatorbuttons">
                 <button id="multiply" class="operatorbutton">x</button>

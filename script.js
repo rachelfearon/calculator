@@ -40,7 +40,7 @@ numberButtons.addEventListener("click", event => {
         if (display.textContent.length > 19) {
             return;
         } else {
-            let num = event.target.textContent;
+            let num = Number(event.target.placeholder);
             displayNumber(num);
             currentNumber = currentNumber + num; //set clicked number as currentNumber plus previously displayed number
             equals = false;
@@ -67,12 +67,12 @@ operatorButtons.addEventListener("click", event => {
         displayNumber(runningTotal);
         currentNumber = runningTotal;
     };
-    // if an operation is in progress, resolve the operation & display total
-    if (currentOperator.id === "divide" && currentNumber === "0") {
+    
+    if (currentOperator.id === "divide" && currentNumber === "0") { //if dividing by 0, prevent operator from being stored/highlighted
         operate(currentOperator.id, currentNumber, lastNumber);
         return;
     } else {
-        if (lastNumber && currentOperator) {
+        if (lastNumber && currentOperator) {// if an operation is in progress, resolve the operation & display total
         runningTotal = operate(currentOperator.id, currentNumber, lastNumber);
         display.textContent = '';
         displayNumber(runningTotal);
