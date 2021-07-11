@@ -107,10 +107,15 @@ input {
     background: url('images/gemstone.png') no-repeat;
     background-size: 5.5em;
     background-position: left;
-    border: none;
-    /* align-self: center; */
-    /* justify-self: center; */
+    border-left: solid 20px transparent;
+    border-right: solid 20px transparent;
+    border-bottom: solid 20px transparent;
+    border-top: solid 0px transparent;
+    filter: drop-shadow(0 0 5px #333);
+}
 
+input:active {
+    transform: translateY(3px) translateX(1px);
 }
 
 
