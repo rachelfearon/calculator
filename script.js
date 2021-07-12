@@ -12,7 +12,8 @@ let equals = false;
 
 numberButtons.addEventListener("click", event => {
     console.log(event.target);
-    if (event.target.classList.contains("numberbuttons")) { //ignore equals & surrounding div
+
+    if (event.target.classList.contains("${(numberbuttons || equalsbutton || decimalbutton)}") || event.target.nodeName === "P") { //ignore equals & surrounding div
         return;
     } else {  //Deactivate any highlighted Operator buttons
         if (currentOperator) {
@@ -23,7 +24,7 @@ numberButtons.addEventListener("click", event => {
         };
     };
 
-    if (event.target.id == 'decimal') {
+    if (event.target.placeholder == '.') {
         if (display.textContent.length > 19) {
             return;
         };
@@ -37,7 +38,7 @@ numberButtons.addEventListener("click", event => {
         };
     };
     
-    if (event.target.textContent !== '=' && event.target.textContent !== '.') {//display Number (but disclude NaN)
+    if (event.target.placeholder !== '=' && event.target.placeholder !== '.') {//display Number (but disclude NaN)
         if (display.textContent.length > 19) {
             return;
         } else if ( (Number(event.target.placeholder)) === NaN) {
@@ -118,8 +119,9 @@ function storeOperator(operatorId) {
 function displayNumber(num) {
     if (isNaN(num)) {
         if (num === '.') {
-            if (!currentNumber) {
+            if (!currentNumber || equals === true) {
                 display.textContent = '0';
+                currentNumber = 0;
                 display.textContent = display.textContent + num;
             } else {
                 display.textContent = display.textContent + num;
@@ -133,7 +135,8 @@ function displayNumber(num) {
             display.textContent = display.textContent + num;
         } else { 
             if (equals == true) {
-                display.textContent = '';
+                display.textContent = display.textContent + num;
+                return;
             };
 
             if (display.textContent === '0') {  //check if it's the beginning/Clear 0
