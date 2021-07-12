@@ -1,7 +1,7 @@
 const display = document.querySelector('#display');
 const numberButtons = document.querySelector('#numberbuttons');
 const operatorButtons = document.querySelector('#operatorbuttons');
-const equalsButton = document.querySelector('#equalsbutton');
+const equalsButton = document.querySelector('#equals');
 
 let currentNumber = '';
 let lastNumber = '';
@@ -11,7 +11,8 @@ let lastOperator = '';
 let equals = false;
 
 numberButtons.addEventListener("click", event => {
-    if (event.target.id == 'equalsbutton' || event.target.id == 'numberButtons') { //ignore equals & surrounding div
+    console.log(event.target);
+    if (event.target.classList.contains("numberbuttons")) { //ignore equals & surrounding div
         return;
     } else {  //Deactivate any highlighted Operator buttons
         if (currentOperator) {
@@ -39,6 +40,8 @@ numberButtons.addEventListener("click", event => {
     if (event.target.textContent !== '=' && event.target.textContent !== '.') {//display Number (but disclude NaN)
         if (display.textContent.length > 19) {
             return;
+        } else if ( (Number(event.target.placeholder)) === NaN) {
+            return;
         } else {
             let num = Number(event.target.placeholder);
             displayNumber(num);
@@ -53,8 +56,6 @@ operatorButtons.addEventListener("click", event => {
     if (event.target.id === 'operatorbuttons') { //ignore containing div
         return;
     };
-
-
 
     if (event.target.id === 'clear') {
         clearAll();
@@ -94,7 +95,7 @@ operatorButtons.addEventListener("click", event => {
 });
 
 equalsButton.addEventListener("click", event => {
-    if (event.target.id !== 'equalsbutton') { //prevent highlighting of surrounding div
+    // if (event.target.placeholder !== '=') { //prevent highlighting of surrounding div
         if (equals === true) { //if equals is clicked twice in a row, return
             return;
         } else if (!lastNumber) {
@@ -107,7 +108,7 @@ equalsButton.addEventListener("click", event => {
         lastNumber = '';
         equals = true;
         }
-    };
+    // };
 });
 
 function storeOperator(operatorId) {
