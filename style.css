@@ -9,7 +9,8 @@ body {
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	background-color: #89a1e2;
+	background-image: linear-gradient(160deg, rgb(153, 158, 224)  0%, 
+    rgb(205, 161, 235) 100%);
 }
 
 .border {
@@ -84,11 +85,8 @@ body {
     justify-self: center;
     border-radius: 2px;
     box-shadow: 3px 1px rgba(226, 218, 192, 0.795);
-    /* margin-bottom: 25px; */
     height: 3em;
     margin: 1em;
-    /*text-align: right;*/
-    
 }
 
 .display {
@@ -110,7 +108,6 @@ body {
 .numberbuttons {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    
 }
 
 .operatorbuttons {
@@ -119,8 +116,6 @@ body {
     margin: 0 0 0 10px;
     justify-items: end;
 }
-
-
 
 #add {
     height: 100px;
@@ -168,7 +163,6 @@ p {
     flex-direction: row;
     padding: 0px;
     margin: 0px;
-
 
 }
 
@@ -218,10 +212,8 @@ p {
 
 #add {
     transform: scale(1.09, 1.17) translateY(8px) translateX(3px);
-    /* display: inline-block; */
     background: url(images/longwhitegemstone.png) no-repeat;
     background-size: 5em;
-    /* -webkit-transform: scale(0.9, 3) translateY(34px) translateX(-4px); */
 }
 
 #add:active {
@@ -232,14 +224,3 @@ p {
     display: inline-block;
     width: 30px;
 }
-/* #subtract {
-    transform: translateX(4px);
-}
-
-#divide {
-    transform: translateX(-1.5px);
-}
-
-#clear {
-    transform: translateX(2px);
-} */

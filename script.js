@@ -8,7 +8,6 @@ let currentNumber = '';
 let lastNumber = '';
 let runningTotal = '';
 let currentOperator = '';
-let lastOperator = '';
 let equals = false;
 
 numberButtons.addEventListener("click", event => {
@@ -51,7 +50,6 @@ numberButtons.addEventListener("click", event => {
             equals = false;
         };
     };
-    consolelog();
 });
 
 operatorButtons.addEventListener("click", event => {
@@ -100,7 +98,6 @@ operatorButtons.addEventListener("click", event => {
 
         equals = false;
     };
-    consolelog();
 });
 
 equalsButton.addEventListener("click", event => {
@@ -155,7 +152,6 @@ function displayNumber(num) {
             display.textContent = display.textContent + num; //display multi digit numbers
         };
     };
-    //consolelog();
 };
 
 function operate(operator, num1, num2) {
@@ -214,25 +210,11 @@ function clearAll() {
     runningTotal = '';
     
     clearActiveOperators();
-
-    consolelog();
-};
-
-function consolelog() {
-    console.log(`currentOperator = ${currentOperator.id}`);
-    console.log(`lastOperator = ${lastOperator.id}`);
-    console.log(`currentNumber = ${currentNumber}`);
-    console.log(`lastNumber = ${lastNumber}`);
-    console.log(`runningTotal = ${runningTotal}`);
-    console.log(`equals = ${equals}`);
-    console.log(`------------`);
 };
 
 function clearActiveOperators() {
     currentOperator = '';
-    lastOperator = '';
-    
-    //let opBtns = operatorButtons.childNodes;
+
     for (i = 0; i < operators.length; i++) {
         if (operators[i].classList.contains("activeButton")){
             operators[i].classList.remove("activeButton");
