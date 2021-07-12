@@ -25,7 +25,7 @@ numberButtons.addEventListener("click", event => {
     };
 
     if (event.target.placeholder == '.') {
-        if (display.textContent.length > 19) {
+        if (display.textContent.length > 7) {
             return;
         };
 
@@ -39,7 +39,7 @@ numberButtons.addEventListener("click", event => {
     };
     
     if (event.target.placeholder !== '=' && event.target.placeholder !== '.') {//display Number (but disclude NaN)
-        if (display.textContent.length > 19) {
+        if (display.textContent.length > 7) {
             return;
         } else if ( (Number(event.target.placeholder)) === NaN) {
             return;
@@ -54,6 +54,7 @@ numberButtons.addEventListener("click", event => {
 });
 
 operatorButtons.addEventListener("click", event => {
+    console.log(event.target);
     if (event.target.id === 'operatorbuttons') { //ignore containing div
         return;
     };
@@ -64,10 +65,15 @@ operatorButtons.addEventListener("click", event => {
     };
 
     if (event.target.id === 'squareroot') {
-        runningTotal = squareroot(currentNumber);
+        if (currentOperator) { //if operation is in progress
+            runningTotal = operate(currentOperator.id, currentNumber, lastNumber); //resolve operation in progress
+            currentNumber = runningTotal; //store result of in progress operation into currentNumber
+        };
+        runningTotal = Number(squareroot(currentNumber).toFixed(8));
         display.textContent = '';
         displayNumber(runningTotal);
         currentNumber = runningTotal;
+        return;
     };
     
     if (currentOperator.id === "divide" && currentNumber === "0") { //if dividing by 0, prevent operator from being stored/highlighted
@@ -93,6 +99,7 @@ operatorButtons.addEventListener("click", event => {
 
         equals = false;
     };
+    consolelog();
 });
 
 equalsButton.addEventListener("click", event => {
@@ -129,13 +136,14 @@ function displayNumber(num) {
         } else {
             return;
         };        
-    } else if (!lastOperator) {
+    } else {
         if (display.textContent === '0') {
             display.textContent = '';
             display.textContent = display.textContent + num;
         } else { 
             if (equals == true) {
-                display.textContent = display.textContent + num;
+                //display.textContent = display.textContent + num;
+                display.textContent = num;
                 return;
             };
 
@@ -146,6 +154,7 @@ function displayNumber(num) {
             display.textContent = display.textContent + num; //display multi digit numbers
         };
     };
+    //consolelog();
 };
 
 function operate(operator, num1, num2) {
@@ -157,10 +166,10 @@ function operate(operator, num1, num2) {
         return subtract(num1, num2);
     } else if (operator === 'multiply') {
         currentOperator = '';
-        return multiply(num1, num2);
+        return Number(multiply(num1, num2).toFixed(8));
     } else if (operator === 'divide') {
         currentOperator = '';
-        return divide(num1, num2);
+        return Number(divide(num1, num2).toFixed(8));
     } else {
         console.log("OOPS");
     };

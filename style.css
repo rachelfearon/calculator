@@ -9,8 +9,23 @@ body {
 	justify-content: center;
 	align-items: center;
 	height: 100vh;
-	background-color: #9ec8e0;
+	background-color: #89a1e2;
+}
 
+.border {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(180deg, rgba(238, 230, 190, 0.178)  0%, 
+    rgba(214, 205, 179, 0.747) 27%, 
+    rgba(233, 223, 193, 0.753) 53%,
+    rgba(97, 92, 76, 0.432)100%);
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+    width: 40em;
+    height: 27em;
+    border-radius: 2em;
+    box-shadow: 5px 5px 20px 5px rgba(34, 34, 34, 0.781);
 }
 
 .calcwrapper {
@@ -18,26 +33,36 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* background-color: rgb(190, 168, 119); */
-    background: repeating-linear-gradient(rgb(207, 181, 125), rgb(173, 154, 112) 5px, rgb(122,107,75) 5px);
-    background: linear-gradient(to bottom right, rgb(190, 168, 119), 60%, rgb(122, 107, 75));
-    
-    width: 45em;
-    height: 30em;
+    border-radius: .5em;
+    background-image: 
+    -webkit-repeating-linear-gradient(top, rgba(241, 177, 2, 0) 0%, 
+        rgba(214, 151, 14, 0)   4%, rgba(216, 186, 130, 0.1) 3%),
+    -webkit-repeating-linear-gradient(top, rgba(43, 37, 23, 0) 0%, 
+        hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(top, rgba(151, 139, 97, 0) 0%, 
+        rgba(202, 174, 138, 0) 1.2%, rgba(192, 166, 96, 0.15) 2.2%),
+    linear-gradient(180deg, rgb(155, 143, 91)  0%, 
+    rgb(240, 228, 195) 47%, 
+    rgb(243, 229, 183) 53%,
+    rgb(117, 104, 66)100%);
+    width: 38em;
+    height: 25em;
 }
 
 .header {
     display: grid;
-    width: 650px;
-    grid-template-columns: 1fr 1fr;
-    justify-content:space-around;
+    width: 37em;
+    grid-template-columns: 1.78fr 1fr 0.1fr;
+    align-items: center;
+    border: 2px solid rgb(145, 129, 109);
+    border-radius: 0.5em;
 }
 
 .title > p {
     display: flex;
     justify-content: center;
     font-family: cursive;
-    font-size: 2em;
+    font-size: 1.9em;
     font-weight: 800;
     transform: rotate(-12deg);  
 }
@@ -47,9 +72,10 @@ body {
     width: 16em;
     background-color: lightblue;
     border: 1px solid black;
-    justify-self: end;
-    margin-bottom: 25px;
+    justify-self: center;
+    /* margin-bottom: 25px; */
     height: 3em;
+    margin: 1em;
     /*text-align: right;*/
     
 }
@@ -57,7 +83,6 @@ body {
 .display {
     text-align: right;
     text-justify: center;
-    align-self: center;
     margin: 5px;
     font-family: sans-serif;
     font-size: 1.5em;
@@ -105,8 +130,7 @@ body {
 }
 
 .activeButton {
-    background-color: blue;
-    color: red;
+    filter: drop-shadow(0 0 10px rgb(213, 234, 240));
 }
 
 input {
@@ -118,7 +142,7 @@ input {
     border-right: solid 0px transparent;
     border-bottom: solid 0px transparent;
     border-top: solid 0px transparent;
-    filter: drop-shadow(0 0 5px rgb(56, 43, 9));
+    filter: drop-shadow(0 0 5px rgb(73, 47, 8));
 }
 
 input:active {
@@ -177,4 +201,22 @@ p {
 
 #equals {
     margin-left: -3px;
+}
+
+.operatorbutton {
+    background: url(images/whitegemstone.png) no-repeat;
+    background-size: 5.5em;
+    border: none;
+}
+
+#add {
+    transform: scale(1, 1.17) translateY(7px) translateX(-3px);
+    /* display: inline-block; */
+    background: url(images/longwhitegemstone.png) no-repeat;
+    background-size: 5em;
+    /* -webkit-transform: scale(0.9, 3) translateY(34px) translateX(-4px); */
+}
+
+#add:active {
+    transform: translateY(11px) translateX(-2px) scale(1, 1.17) ;
 }
