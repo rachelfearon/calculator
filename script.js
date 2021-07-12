@@ -1,6 +1,7 @@
 const display = document.querySelector('#display');
 const numberButtons = document.querySelector('#numberbuttons');
 const operatorButtons = document.querySelector('#operatorbuttons');
+const operators = document.getElementsByClassName("operatorbutton");
 const equalsButton = document.querySelector('#equals');
 
 let currentNumber = '';
@@ -80,7 +81,7 @@ operatorButtons.addEventListener("click", event => {
         operate(currentOperator.id, currentNumber, lastNumber);
         return;
     } else {
-        if (lastNumber && currentOperator) {// if an operation is in progress, resolve the operation & display total
+        if (lastNumber && currentOperator && currentNumber) {// if an operation is in progress, resolve the operation & display total
         runningTotal = operate(currentOperator.id, currentNumber, lastNumber);
         display.textContent = '';
         displayNumber(runningTotal);
@@ -232,9 +233,9 @@ function clearActiveOperators() {
     lastOperator = '';
     
     //let opBtns = operatorButtons.childNodes;
-    for (i = 0; i < operatorButtons.children.length; i++) {
-        if (operatorButtons.children[i].classList.contains("activeButton")){
-            operatorButtons.children[i].classList.remove("activeButton");
+    for (i = 0; i < operators.length; i++) {
+        if (operators[i].classList.contains("activeButton")){
+            operators[i].classList.remove("activeButton");
         }
     };
 };
