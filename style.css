@@ -117,6 +117,15 @@ body {
     justify-items: end;
 }
 
+#clearbackset {
+    display: grid;
+    justify-items: end;
+}
+
+#backsymbol {
+    font-size: 1em;
+}
+
 #add {
     height: 100px;
 }
